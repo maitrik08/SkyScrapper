@@ -23,7 +23,7 @@ class CityProvider with ChangeNotifier {
 
   Future<void> loadCity() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    City = prefs.getString('city') ?? '';
+    City = prefs.getString('city');
     notifyListeners();
   }
 }
