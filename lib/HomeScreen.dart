@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
-  ForcastModel? MODEL;
+  ForcastModel? modell;
   String responce = '';
   List<String> DateList = [];
   List<String> DayList = [];
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
           future: CallApI(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-             if(MODEL != null){
+             if(modell != null){
                return Scaffold(
                  drawer: Drawer(
                      child: Padding(
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                          child: Padding(
                            padding:  EdgeInsets.symmetric(horizontal: 20),
                            child: Text(
-                             '${MODEL!.current.tempC.toInt()}°C',
+                             '${modell!.current.tempC.toInt()}°C',
                              style: TextStyle(
                                fontWeight: FontWeight.bold,
                                fontSize: 55,
@@ -132,13 +132,13 @@ class _HomeScreenState extends State<HomeScreen> {
                          child: Row(
                            children: [
                              Image.network(
-                               'https:' + MODEL!.current.condition.icon,
+                               'https:' + modell!.current.condition.icon,
                                height: 40,
                                width: 40,
                                fit: BoxFit.fill,
                              ),
                              Text(
-                               MODEL!.current.condition.text,
+                               modell!.current.condition.text,
                                style: TextStyle(fontSize: 18),
                              )
                            ],
@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                            children: [
                              Text('Today    ${DayList[0]}'),
-                             Text('${MODEL!.forecast.forecastday[0].day.maxtempC.round()}-${MODEL!.forecast.forecastday[0].day.mintempC.round()}°C')
+                             Text('${modell!.forecast.forecastday[0].day.maxtempC.round()}-${modell!.forecast.forecastday[0].day.mintempC.round()}°C')
                            ],
                          ),
                        ),
@@ -166,17 +166,17 @@ class _HomeScreenState extends State<HomeScreen> {
                            padding: const EdgeInsets.symmetric(horizontal: 25),
                            child: Row(
                              children: [
-                           for(int i = 0 ; i < MODEL!.forecast.forecastday[0].hour.length;i++)...[
+                           for(int i = 0 ; i < modell!.forecast.forecastday[0].hour.length;i++)...[
                                 Column(
                                   children: [
                                     Text(TimeList[i]),
                                     Image.network(
-                                      'https:' + MODEL!.forecast.forecastday[0].hour[i].condition.icon,
+                                      'https:' + modell!.forecast.forecastday[0].hour[i].condition.icon,
                                       height: 37,
                                       width: 37,
                                       fit: BoxFit.fill,
                                     ),
-                                    Text('${MODEL!.forecast.forecastday[0].hour[i].tempC.round()}°C'),
+                                    Text('${modell!.forecast.forecastday[0].hour[i].tempC.round()}°C'),
                                   ],
                                 ),
                              SizedBox(width: 25)
@@ -194,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                          padding: const EdgeInsets.symmetric(horizontal: 20),
                          child: Column(
                            children: [
-                             for(int i = 0 ; i < MODEL!.forecast.forecastday.length;i++)...[
+                             for(int i = 0 ; i < modell!.forecast.forecastday.length;i++)...[
                                i!=0?Row(
                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                  children: [
@@ -215,12 +215,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                          children: [
                                            Image.network(
-                                             'https:' + MODEL!.forecast.forecastday[i].day.condition.icon,
+                                             'https:' + modell!.forecast.forecastday[i].day.condition.icon,
                                              height: 30,
                                              width: 30,
                                              fit: BoxFit.fill,
                                            ),
-                                           Text('${MODEL!.forecast.forecastday[i].day.maxtempC.round()}-${MODEL!.forecast.forecastday[i].day.mintempC.round()}°C')
+                                           Text('${modell!.forecast.forecastday[i].day.maxtempC.round()}-${modell!.forecast.forecastday[i].day.mintempC.round()}°C')
                                          ],
                                        )
                                    )
@@ -243,12 +243,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,childAspectRatio: 1.24),
                                shrinkWrap:  true,
                              children: [
-                               weather(iconUrl: 'https://cdn-icons-png.flaticon.com/128/6218/6218295.png', Name: 'Temperature Felt \n${MODEL!.current.feelslikeC.round()}°C'),
-                               weather(iconUrl: 'https://cdn-icons-png.flaticon.com/128/6566/6566341.png', Name: 'Humidility ${MODEL!.current.humidity}%'),
-                               weather(iconUrl: 'https://cdn-icons-png.flaticon.com/128/685/685902.png', Name: 'Visibility ${MODEL!.current.visKm.round()} km'),
-                               weather(iconUrl: 'https://cdn-icons-png.flaticon.com/128/5065/5065210.png', Name: 'NW ${MODEL!.current.windKph.round()}'),
-                               weather(iconUrl: 'https://cdn-icons-png.flaticon.com/128/8117/8117332.png', Name: 'UV ${MODEL!.current.uv.round()}'),
-                               weather(iconUrl: 'https://cdn-icons-png.flaticon.com/128/8299/8299106.png', Name: 'Air Pressure \n${MODEL!.current.pressureIn.round()} hPa'),
+                               weather(iconUrl: 'https://cdn-icons-png.flaticon.com/128/6218/6218295.png', Name: 'Temperature Felt \n${modell!.current.feelslikeC.round()}°C'),
+                               weather(iconUrl: 'https://cdn-icons-png.flaticon.com/128/6566/6566341.png', Name: 'Humidility ${modell!.current.humidity}%'),
+                               weather(iconUrl: 'https://cdn-icons-png.flaticon.com/128/685/685902.png', Name: 'Visibility ${modell!.current.visKm.round()} km'),
+                               weather(iconUrl: 'https://cdn-icons-png.flaticon.com/128/5065/5065210.png', Name: 'NW ${modell!.current.windKph.round()}'),
+                               weather(iconUrl: 'https://cdn-icons-png.flaticon.com/128/8117/8117332.png', Name: 'UV ${modell!.current.uv.round()}'),
+                               weather(iconUrl: 'https://cdn-icons-png.flaticon.com/128/8299/8299106.png', Name: 'Air Pressure \n${modell!.current.pressureIn.round()} hPa'),
                              ],
                            ),
                          ),
@@ -298,16 +298,16 @@ class _HomeScreenState extends State<HomeScreen> {
     Map<String, dynamic> forcastData = jsonData['forecast'];
     Forecast forecast = Forecast.fromJson(forcastData);
     ForcastModel model = ForcastModel(location: location, current: current, forecast: forecast);
-    MODEL = model;
+    modell = model;
   }
   void Date(){
-    for(int i = 0 ; i < MODEL!.forecast.forecastday[0].hour.length;i++){
-      DateTime dateTime = DateTime.parse(MODEL!.forecast.forecastday[0].hour[i].time);
+    for(int i = 0 ; i < modell!.forecast.forecastday[0].hour.length;i++){
+      DateTime dateTime = DateTime.parse(modell!.forecast.forecastday[0].hour[i].time);
       String formattedTime = DateFormat('ha').format(dateTime);
       TimeList.add(formattedTime);
     }
-    for(int i = 0 ; i < MODEL!.forecast.forecastday.length;i++){
-      DateTime dateTime = DateTime.parse(MODEL!.forecast.forecastday[i].date);
+    for(int i = 0 ; i < modell!.forecast.forecastday.length;i++){
+      DateTime dateTime = DateTime.parse(modell!.forecast.forecastday[i].date);
       String dayName = DateFormat('EE').format(dateTime);
       String formattedString = "${dateTime.day.toString().padLeft(2, '0')}/${dateTime.month.toString().padLeft(2, '0')}";
       DateList.add(formattedString);
