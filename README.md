@@ -1,6 +1,9 @@
 # skyscrapper
 
+
 Project Definition: Weather App (Sky Scrapper)
+
+
 Project Description:
 "Sky Scrapper" is a feature-rich weather application built using Flutter, incorporating key
 concepts such as API calling, Shared Preferences, and network connectivity. The app offers a
